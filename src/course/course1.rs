@@ -1,3 +1,4 @@
+/// 基础语法 变量 语句
 pub fn test_all() {
     println!("==========");
     test_shadowing();
