@@ -10,6 +10,9 @@ pub struct List {
     head: Link,
 }
 
+/// 为什么不直接用Node：栈长度无法在编译期确定
+/// 为什么不用引用：需要提供给外界使用 引用失效
+/// 所以可以这么认为：Option就是null Box就是指针
 type Link = Option<Box<Node>>;
 
 struct Node {
