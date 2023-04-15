@@ -1,3 +1,6 @@
+// 箱级allow属性 不带!为结构/模块/函数级别
+#![allow(dead_code)]
+
 struct Aser {
     name: String,
     age: i32,
@@ -13,6 +16,7 @@ impl Aser {
 mod tests {
     use super::*;
 
+    /// 单元测试
     #[test]
     fn test_test() {
         let a = Aser {

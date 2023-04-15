@@ -28,6 +28,7 @@ fn test_shadowing() {
     println!("addr: 0x{:X}", addr);
 
     // 这是可变变量 允许直接修改
+    // 个人理解：只有重新赋值的情况才需要mut 然后他具有传染性 只要struct里的任何一个属性需要修改 整个struct就需要是mut的
 
     let mut a = 2;
     println!("Hello, world! tmp is {}.", a);
