@@ -1,5 +1,11 @@
 // 箱级allow属性 不带!为结构/模块/函数级别
-#![allow(dead_code)]
+#![allow(dead_code)] // 防止提示 fields xxx are never read
+
+/**
+ * 本章学习：
+ * 结构体 和方法
+ * 单元测试（必须放在单独的mod里）
+ */
 
 struct Aser {
     name: String,

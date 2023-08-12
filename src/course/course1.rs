@@ -16,6 +16,7 @@
 
 /// 基础语法 变量 语句
 pub fn test_all() {
+    println!("\n\ncourse 1:");
     println!("==========");
     test_format_print();
     println!("==========");

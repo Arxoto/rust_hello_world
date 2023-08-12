@@ -1,5 +1,11 @@
 /// 并发
 #[cfg(test)]
+
+/**
+ * 多线程并发
+ * rust同时支持协程，这里没举例
+ */
+
 mod test_concurrent {
     use std::{thread, time::Duration, sync::mpsc};
 
