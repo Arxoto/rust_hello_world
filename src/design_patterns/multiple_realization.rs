@@ -1,4 +1,5 @@
-//! 泛型系统可为一个类型实现多个不同泛型的特征
+//! 多重实现
+//! 泛型系统可为一个类型实现多个不同泛型的特征  
 //! 这里实现多个 AsRef
 
 #![allow(dead_code)]
@@ -59,6 +60,7 @@ mod test {
             profession: Box::new(Teacher()),
         };
 
+        // 演示
         print_person_info(alice.as_ref());
         print_profession_describe(alice.as_ref());
     }
