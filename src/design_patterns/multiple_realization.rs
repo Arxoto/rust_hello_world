@@ -1,7 +1,7 @@
-#![allow(dead_code)]
+//! 泛型系统可为一个类型实现多个不同泛型的特征
+//! 这里实现多个 AsRef
 
-// 泛型系统可为一个类型实现多个不同泛型的特征
-// 这里实现多个 AsRef
+#![allow(dead_code)]
 
 struct Person {
     pub age: u32,

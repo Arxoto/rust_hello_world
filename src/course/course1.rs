@@ -1,45 +1,51 @@
+//! 本章学习：
+//! - 普通注释 文档注释（解析成HTML帮助文档）
+//! - 格式化和输出
+//! - 不可变变量 可变变量 常量
+//! - 原生类型：元组（用作返回值时很有用）
+//! - 原生类型：数组（类型大小确定）和与其强相关的切片
+//! - 自定义类型：结构体
+//! - 自定义类型：枚举
+//! - 别名（见枚举的测试函数中的说明）
+//! - 函数 函数体表达式 lambda
+//! - 条件 循环
+
 #![allow(dead_code)] // 防止提示 fields xxx are never read
 
+/// 文档注释 使用 markdown 语法 回车会自动添加下一行注释 很方便  
+/// 基础语法 变量 语句 注释  
 /**
- * 本章学习：
- * 普通注释（本注释内容） 文档注释（解析成HTML帮助文档）
- * 格式化和输出
- * 不可变变量 可变变量 常量
- * 原生类型：元组（用作返回值时很有用）
- * 原生类型：数组（类型大小确定）和与其强相关的切片
- * 自定义类型：结构体
- * 自定义类型：枚举
- * 别名（见枚举的测试函数中的说明）
- * 函数 函数体表达式 lambda
- * 条件 循环
+ * 同样是文档注释 但 vscode 会跟 Java 一样自动在每行前面加上星号 与 markdown 语法冲突
  */
-
-/// 基础语法 变量 语句
 pub fn test_all() {
+    // 行注释 回车后不会自动添加下一个行注释 适用于单行注释
+    /*
+    块注释 打出注释开头-回车-注释内容-最后再加个回车 很方便
+     */
     println!("\n\ncourse 1:");
-    println!("==========");
+    println!("========== test_format_print");
     test_format_print();
-    println!("==========");
+    println!("========== test_shadowing");
     test_shadowing();
-    println!("==========");
+    println!("========== test_tuple");
     test_tuple();
-    println!("==========");
+    println!("========== test_array_slice");
     test_array_slice();
-    println!("==========");
+    println!("========== test_struct");
     test_struct();
-    println!("==========");
+    println!("========== test_enum");
     test_enum();
-    println!("==========");
+    println!("========== test_func");
     test_func();
-    println!("==========");
+    println!("========== test_if");
     test_if();
-    println!("==========");
+    println!("========== test_while_for_loop");
     test_while_for_loop();
 }
 
 /// 格式化输出
-/// - 实现了 fmt::Display 特征（trait）后该结构体可以被打印
-/// - 对于泛型容器（generic container）（如 Vec<T>）没实现该特征 需要使用 fmt::Debug
+/// - 实现了 `fmt::Display` 特征（trait）后该结构体可以被打印
+/// - 对于泛型容器（generic container）（如 `Vec<T>`）没实现该特征 需要使用 `fmt::Debug`
 fn test_format_print() {
     let ss = format!(
         "a is {0}, b is {b_name}, num={num:>0width$}\n",
@@ -48,10 +54,10 @@ fn test_format_print() {
         num = 3,
         width = 5
     );
-    print!("{ss}");
+    print!("format print: {ss}");
 
-    println!("normal print"); // io::stdout
-    eprintln!("error print"); // io::stderr
+    println!("stdout: normal print"); // io::stdout
+    eprintln!("stderr: error print"); // io::stderr
 
     #[derive(Debug)]
     struct Structure1(i32);
@@ -61,7 +67,7 @@ fn test_format_print() {
         name: String,
     }
     println!(
-        "print by add 'derive(Debug)': {:?} {1:?}\n{1:#?}",
+        "print by add 'derive(Debug)': {:?} {1:?}\nprint beauty: {1:#?}",
         Structure1(3),
         Structure2 {
             id: 1,
@@ -71,7 +77,7 @@ fn test_format_print() {
 }
 
 /// # 文档注释
-/// 探究 常量 不可变变量 可变变量 变量遮蔽（variable shadowing）（也有翻译重影机制）
+/// 探究 常量 不可变变量 可变变量 变量遮蔽（ variable shadowing ）（也有翻译重影机制）
 fn test_shadowing() {
     // 不可变变量可以多次定义 - 遮蔽Shadowing 地址会改变
 
@@ -83,7 +89,7 @@ fn test_shadowing() {
     let a = 2;
     println!("Hello, world! tmp is {}.", a);
     let addr = &a as *const i32 as usize;
-    println!("addr: 0x{:X}", addr);
+    println!("addr: 0x{:X}  => address changed after shadowing", addr);
 
     // 这是可变变量 允许直接修改
     // 个人理解：只有重新赋值的情况才需要mut 然后他具有传染性 只要struct里的任何一个属性需要修改 整个struct就需要是mut的
@@ -96,12 +102,15 @@ fn test_shadowing() {
     a = 2;
     println!("Hello, world! tmp is {}.", a);
     let addr = &a as *const i32 as usize;
-    println!("addr: 0x{:X}", addr);
+    println!(
+        "addr: 0x{:X}  => address not changed when mutable variable",
+        addr
+    );
 
     // 而常量 不能重新定义
     const B_TMP: i64 = 0;
     // const B_TMP: i64 = 1; // 会报错
-    println!("Hello, world! tmp is {}.", B_TMP);
+    println!("Hello, world! const is {}.", B_TMP);
     // 另一种常量 用 static 声明。具有 'static 生命周期的，可以是可变的变量（译注：须使用 static mut 关键字）
 }
 
@@ -109,9 +118,9 @@ fn test_shadowing() {
 fn test_tuple() {
     // 元组 tuple
     let tup = (1, true, 6.1);
-    // 解构（deconstruct）
+    // 解构（ deconstruct ）
     let (x, y, z) = tup;
-    println!("{}:{}:{}", x, y, z);
+    println!("tuple deconstruct {}:{}:{}", x, y, z);
 }
 
 /// 数组和切片
@@ -146,11 +155,11 @@ fn test_array_slice() {
     }
 
     // 数组可以自动被借用成为 slice
-    println!("borrow the whole array as a slice");
+    println!(">>> borrow the whole array as a slice <<<");
     analyze_slice(&xs);
 
     // slice 可以指向数组的一部分
-    println!("borrow a section of the array as a slice");
+    println!(">>> borrow a section of the array as a slice <<<");
     analyze_slice(&ys[1..4]);
 }
 
@@ -164,10 +173,10 @@ fn test_struct() {
     // 实例化一个元组结构体
     let pair = Pair(1, 0.1);
     // 访问元组结构体的字段
-    println!("pair contains {:?} and {:?}", pair.0, pair.1);
+    println!("tuple_struct: pair contains {:?} and {:?}", pair.0, pair.1);
     // 解构一个元组结构体
     let Pair(integer, decimal) = pair;
-    println!("pair contains {:?} and {:?}", integer, decimal);
+    println!("deconstruct: pair contains {:?} and {:?}", integer, decimal);
 
     // 经典的 C 语言风格结构体（C struct）
     struct Point {
@@ -179,17 +188,20 @@ fn test_struct() {
     let y = 0.4f32;
     let point: Point = Point { x, y };
     // 访问 point 的字段
-    println!("point coordinates: ({}, {})", point.x, point.y);
+    println!("struct: point coordinates: ({}, {})", point.x, point.y);
     // 使用结构体更新语法创建新的 point，这样可以用到之前的 point 的字段
     let bottom_right = Point { x: 5.2, ..point };
     // `bottom_right.y` 与 `point.y` 一样，因为这个字段就是从 `point` 中来的
-    println!("second point: ({}, {})", bottom_right.x, bottom_right.y);
+    println!(
+        "struct: second point: ({}, {})",
+        bottom_right.x, bottom_right.y
+    );
     // 使用 `let` 绑定来解构 point
     let Point {
         x: left_edge,
         y: top_edge,
     } = point;
-    println!("second point: ({}, {})", left_edge, top_edge);
+    println!("deconstruct: second point: ({}, {})", left_edge, top_edge);
 }
 
 /// 枚举
@@ -199,7 +211,7 @@ fn test_enum() {
         A,
         B(char),
         C(String),
-        D {x: i64, y: i64},
+        D { x: i64, y: i64 },
     }
 
     fn inspect(event: Event) {
@@ -264,7 +276,7 @@ fn test_if() {
 /// 循环语句
 fn test_while_for_loop() {
     // 目前没有 do-while 和 fori
-    println!("while");
+    println!(">>> while i < 3 <<<");
     let mut i = 0;
     while i < 3 {
         println!("i is {}", i);
@@ -272,7 +284,7 @@ fn test_while_for_loop() {
     }
 
     // 自带的 while-true 及 loop  这里用了返回值的方式
-    println!("loop");
+    println!(">>> loop and break if 'S' <<<");
     let s = ['R', 'U', 'S', 'T'];
     let mut i = 0;
     let index = loop {

@@ -1,9 +1,6 @@
+//! trait 特性（类似于接口）
+
 #[cfg(test)]
-
-/**
- * trait 特性（类似于接口）
- */
-
 mod test_trait {
 
     /// 特性

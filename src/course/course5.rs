@@ -1,8 +1,6 @@
-#![allow(dead_code)]
+//! rust 实现简单链表
 
-/**
- * rust 实现简单链表
- */
+#![allow(dead_code)]
 
 use std::mem;
 

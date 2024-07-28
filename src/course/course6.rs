@@ -1,9 +1,6 @@
+//! rust的异常处理
+
 #[cfg(test)]
-
-/**
- * rust的异常处理
- */
-
 mod error_handle {
     /// rust 的 panic 建议只能在必要的时候使用（一般推荐语法糖"?"）
     /// - golang 【推荐返回 (result, err) 】 panic 捕获异常 defer(run after return) + recover(catch Exception)

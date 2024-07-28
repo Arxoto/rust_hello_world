@@ -1,6 +1,6 @@
-#![allow(dead_code)]
+//! 实现类似于控制反转的效果
 
-// 实现类似于控制反转的效果
+#![allow(dead_code)]
 
 struct Context {
     pub param: String,
