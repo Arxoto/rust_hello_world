@@ -1,6 +1,6 @@
 //! 将模块分割到不同文件夹的推荐方法  
 //! 在文件夹外放一个同名的 rs 文件表示打包模块  
-//! 这种方式在新版里取代了旧方式：文件夹下创建 mod.rs
+//! 这种方式在新版里取代了旧方式（文件夹下创建 mod.rs）
 
 pub mod inner_module {
     /// 包Package: 及一个工程 必须由一个 Cargo.toml 文件来管理
@@ -21,7 +21,7 @@ pub mod inner_module {
     ///
     /// 模块Module: 组成工程的组织模块 可以是
     /// - 文件 一个rs文件默认为一个模块
-    /// - 文件夹 使用mod.rs
+    /// - 文件夹 与文件夹同级创建同名rs文件（旧方式：使用mod.rs）
     /// - mod关键字定义 如这里的inner_module 可以多层嵌套
     pub fn test() {
         println!("project_structure")

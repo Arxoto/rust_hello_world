@@ -4,10 +4,7 @@
 
 use std::mem;
 
-/**
- * rust linked list
- */
-
+/// rust linked list
 pub struct List {
     head: Link,
 }
