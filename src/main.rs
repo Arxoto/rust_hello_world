@@ -55,7 +55,7 @@ fn run_test() {
 /// - 使用 F5 开始调试
 /// - 依赖插件 "CodeLLDB" （最近好像新出了个插件 "LLDB DAP" 可以研究下）
 /// - vscode 左侧栏点击“运行和调试”，直接点击按钮“运行和调试”，选择 "LLDB" 会自动创建
-/// - 实测不支持查看复杂变量的值 vec 和 hashmap
+/// - 实测不支持查看复杂变量的值 vec 和 hashmap （因此建议使用上面的方法）
 ///   - 安装 rustup 时有两个工具链可选 msvc(default) 和 gnu https://rust-lang.github.io/rustup/installation/windows.html
 ///   - 默认的 msvc 不包括 Rust-specific formatters for LLDB https://github.com/vadimcn/codelldb/wiki/Windows#debugging-rust-on-windows
 #[allow(unused)]
